@@ -6,18 +6,14 @@
 ### Function runs at the experimental session level - e.g. will need to loop over repeated sessions
 
 #Required packages
-require(xlsx)
 require(ggplot2)
-require(Metrics)
-require(patchwork)
-source(paste0(dirname(rstudioapi::getSourceEditorContext()$path), "/fitGaus.R"))
 
 WS_Regret <- function(dat2use){
   dat2use$regretTrial <-  NA
   #loop over trials in run
   for(trial in 1:nrow(dat2use)){
     if(trial == 1){ #move to next trial if current trial is the first of the session
-      datRun[[run]]$regretTrial[trial] <- 0
+      dat2use$regretTrial[trial] <- 0
       next
     }
     curTrial <- dat2use[trial,]
@@ -29,7 +25,7 @@ WS_Regret <- function(dat2use){
     }
   }
   
-  regretTrials <- datAll[datAll$regretTrial == 1,]
+  regretTrials <- dat2use[dat2use$regretTrial == 1,]
   regretTrialsWait <- regretTrials[regretTrials$Choices == 1,]
   percRegretWait <- (nrow(regretTrialsWait)/nrow(regretTrials))*100
   
