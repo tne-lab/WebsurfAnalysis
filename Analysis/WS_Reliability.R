@@ -85,6 +85,7 @@ plotTheta <- ggplot(data = dat, aes(x = predictedTheta, y = theta))+
   theme_classic()
 plotTheta  
 
-
+# EOT:Small -Week1:large = Negative
+# EOT:Large - Week1:Small = Positive
 
 

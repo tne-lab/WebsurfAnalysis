@@ -138,6 +138,7 @@ for(p in 1:length(files)){ #participant loop starts here
     
     dat$offerValue <- dat$theta - dat$Delays #Calculating value of each offer relative to decision threshold
     dat$trial[dat$runID == runNumbers[run]] <- 1:nrow(dat[dat$runID == runNumbers[run],])
+    dat$runNum[dat$runID == runNumbers[run]] <- run
     #saving plots for each individual run 
     if(savePlots == 1){ #save plots if needed - using value set at top of script
       pdf(paste0(savePath, "individualRuns/ParticipantID-", datRun$IDVec[1], "_RunID-", datRun$runID[1], ".pdf"),
@@ -182,7 +183,7 @@ write.xlsx(datOut, saveFile)
 
 #get each participant's theta values and remove repeated rows
 datShort <- datOut %>% distinct(Category, runID, .keep_all = TRUE) 
-datShort <- subset(datShort, select = c(IDVec, runID, Category, theta, CatRank, AvgRatings))
+datShort <- subset(datShort, select = c(IDVec, runID, runNum, Category, theta, CatRank, AvgRatings))
 saveFile <- paste0(dataPath, "thetas.xlsx")
 write.xlsx(datShort, saveFile)
 
